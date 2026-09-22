@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spice Realm | රස නහර පිනවන සුපිරි කෑම</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            gold: '#F59E0B',
+                            goldHover: '#D97706',
+                            darkBg: '#0F172A',
+                            cardBg: '#1E293B',
+                            accentRed: '#EF4444'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0B0F19;
+            color: #F8FAFC;
+        }
+        
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(245, 158, 11, 0.4);
+            box-shadow: 0 12px 30px -10px rgba(245, 158, 11, 0.15);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0F172A;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #F59E0B;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-black">
+
+    <!-- Navigation Bar -->
+    <nav class="sticky top-0 z-40 glass-panel border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo -->
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-amber-500 to-amber-300 flex items-center justify-center shadow-lg shadow-amber-500/20">
+                        <i class="fa-solid font-bold fa-utensils text-slate-950 text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-amber-400 via-amber-200 to-white bg-clip-text text-transparent">
+                            Spice Realm
+                        </span>
+                        <span class="block text-xs font-medium text-amber-500/80 tracking-wider">SUPERI KEMA HOTSPOT</span>
+                    </div>
+                </div>
+
+                <!-- Right Nav Controls -->
+                <div class="flex items-center gap-3 sm:gap-4">
+                    <!-- Admin Login Button -->
+                    <button onclick="openAdminModal()" class="px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-300 hover:text-white bg-slate-800/60 hover:bg-slate-800 border border-slate-700 transition flex items-center gap-2">
+                        <i class="fa-solid fa-lock text-amber-400"></i>
+                        <span class="hidden xs:inline">Admin Panel</span>
+                    </button>
+
+                    <!-- Cart Trigger Button -->
+                    <button onclick="openCartModal()" class="relative px-4 py-2.5 rounded-xl text-sm font-bold text-slate-950 bg-amber-500 hover:bg-amber-400 transition shadow-lg shadow-amber-500/20 flex items-center gap-2">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span class="hidden sm:inline">Order Cart</span>
+                        <span id="cartCountBadge" class="bg-slate-950 text-amber-400 text-xs px-2 py-0.5 rounded-full font-extrabold">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Banner -->
+    <header class="relative py-16 sm:py-24 overflow-hidden border-b border-slate-800">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1600&q=80" 
+                 alt="Restaurant Food Banner" 
+                 class="w-full h-full object-cover opacity-20 filter blur-sm scale-105"
+                 onerror="this.src='https://placehold.co/1600x600/1e293b/f59e0b?text=Spice+Realm+Restaurant'">
+            <div class="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/90 to-[#0B0F19]"></div>
+        </div>
+
+        <div class="relative z-10 max-w-5xl mx-auto px-4 text-center">
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs sm:text-sm font-semibold mb-6">
+                <i class="fa-solid fa-fire text-xs"></i> Sri Lanka's Premium Culinary Experience
+            </div>
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight mb-4">
+                A Taste of Perfection <br>
+                <span class="bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500 bg-clip-text text-transparent">
+                    රස නහර පිනවන සුපිරි කෑම
+                </span>
+            </h1>
+            <p class="text-slate-400 text-sm sm:text-lg max-w-2xl mx-auto mb-8 font-normal">
+                Authentic Sri Lankan spices combined with global culinary mastery. Fresh ingredients, incredible flavors, and instant WhatsApp ordering!
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-4">
+                <a href="#menuSection" class="px-6 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition flex items-center gap-2 shadow-lg shadow-amber-500/25">
+                    <i class="fa-solid fa-utensils"></i> Explore Menu
+                </a>
+                <button onclick="openAdminModal()" class="px-6 py-3.5 rounded-xl glass-panel hover:bg-slate-800 text-white font-semibold transition flex items-center gap-2">
+                    <i class="fa-solid fa-user-gear text-amber-400"></i> Manage Prices
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Food Menu Section -->
+    <main id="menuSection" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-grow">
+        
+        <!-- Category Filter Pills -->
+        <div class="flex items-center justify-start sm:justify-center gap-2 sm:gap-3 overflow-x-auto pb-4 mb-10 no-scrollbar">
+            <button onclick="filterCategory('All')" class="cat-btn active border px-5 py-2.5 rounded-xl text-sm font-bold whitespace-nowrap transition bg-amber-500 text-slate-950 border-amber-500">
+                <i class="fa-solid fa-border-all mr-1.5"></i> All Items
+            </button>
+            <button onclick="filterCategory('Rice & Curry')" class="cat-btn border px-5 py-2.5 rounded-xl text-sm font-bold whitespace-nowrap transition bg-slate-800/80 text-slate-300 border-slate-700/80 hover:border-amber-500/50">
+                <i class="fa-solid fa-bowl-rice mr-1.5 text-amber-400"></i> Rice & Curry
+            </button>
+            <button onclick="filterCategory('Kottu')" class="cat-btn border px-5 py-2.5 rounded-xl text-sm font-bold whitespace-nowrap transition bg-slate-800/80 text-slate-300 border-slate-700/80 hover:border-amber-500/50">
+                <i class="fa-solid fa-fire-burner mr-1.5 text-amber-400"></i> Kottu
+            </button>
+            <button onclick="filterCategory('Burgers & Pizza')" class="cat-btn border px-5 py-2.5 rounded-xl text-sm font-bold whitespace-nowrap transition bg-slate-800/80 text-slate-300 border-slate-700/80 hover:border-amber-500/50">
+                <i class="fa-solid fa-burger mr-1.5 text-amber-400"></i> Burgers & Pizza
+            </button>
+            <button onclick="filterCategory('Beverages')" class="cat-btn border px-5 py-2.5 rounded-xl text-sm font-bold whitespace-nowrap transition bg-slate-800/80 text-slate-300 border-slate-700/80 hover:border-amber-500/50">
+                <i class="fa-solid fa-glass-water mr-1.5 text-amber-400"></i> Beverages
+            </button>
+            <button onclick="filterCategory('Desserts')" class="cat-btn border px-5 py-2.5 rounded-xl text-sm font-bold whitespace-nowrap transition bg-slate-800/80 text-slate-300 border-slate-700/80 hover:border-amber-500/50">
+                <i class="fa-solid fa-ice-cream mr-1.5 text-amber-400"></i> Desserts
+            </button>
+        </div>
+
+        <!-- Food Grid -->
+        <div id="foodGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            <!-- Dynamic Content loaded via JS -->
+        </div>
+    </main>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex justify-end transition-opacity">
+        <div class="w-full max-w-md bg-slate-900 border-l border-slate-800 h-full flex flex-col p-6 shadow-2xl">
+            <!-- Cart Header -->
+            <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-cart-flatbed text-amber-400 text-xl"></i>
+                    <h2 class="text-xl font-bold text-white">Your Food Cart</h2>
+                </div>
+                <button onclick="closeCartModal()" class="text-slate-400 hover:text-white text-xl">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Cart Items Scrollable List -->
+            <div id="cartList" class="flex-grow overflow-y-auto py-4 space-y-4">
+                <!-- Cart items rendered dynamically -->
+            </div>
+
+            <!-- Cart Footer -->
+            <div class="pt-4 border-t border-slate-800">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-slate-400 font-semibold">Total Amount:</span>
+                    <span id="cartTotal" class="text-2xl font-black text-amber-400">LKR 0</span>
+                </div>
+                
+                <!-- Customer Details Form for WhatsApp Order -->
+                <div class="space-y-3 mb-4">
+                    <input type="text" id="custName" placeholder="Your Name (ඔබේ නම)" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3.5 py-2 text-sm text-white focus:outline-none focus:border-amber-500">
+                    <input type="text" id="custAddress" placeholder="Delivery Address / Table No." class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3.5 py-2 text-sm text-white focus:outline-none focus:border-amber-500">
+                </div>
+
+                <button onclick="sendWhatsAppOrder()" class="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold transition flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20">
+                    <i class="fa-brands fa-whatsapp text-xl"></i> Place Order via WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password & Admin Panel Modal -->
+    <div id="adminModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="w-full max-w-2xl bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl max-h-[90vh] flex flex-col">
+            
+            <!-- Close Header -->
+            <div class="flex justify-between items-center pb-4 border-b border-slate-800">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-user-shield text-amber-400 text-xl"></i>
+                    <h2 class="text-xl font-bold text-white">Admin Management Panel</h2>
+                </div>
+                <button onclick="closeAdminModal()" class="text-slate-400 hover:text-white text-xl">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Login View -->
+            <div id="adminLoginView" class="py-8 text-center">
+                <div class="w-16 h-16 bg-amber-500/10 border border-amber-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4 text-amber-400 text-2xl">
+                    <i class="fa-solid fa-key"></i>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">Admin Authentication</h3>
+                <p class="text-slate-400 text-xs sm:text-sm mb-6">Enter password to modify menu prices & add new items.<br><span class="text-amber-500/80 font-mono">(Default Password: admin123)</span></p>
+
+                <div class="max-w-xs mx-auto space-y-3">
+                    <input type="password" id="adminPasswordInput" placeholder="Enter Password" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-center text-white focus:outline-none focus:border-amber-500 text-sm">
+                    <p id="loginErrorMsg" class="text-red-400 text-xs hidden">Invalid password! Try again.</p>
+                    <button onclick="verifyAdminPassword()" class="w-full py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition text-sm">
+                        Unlock Admin Access
+                    </button>
+                </div>
+            </div>
+
+            <!-- Management View (Hidden by default) -->
+            <div id="adminDashboardView" class="hidden flex-grow flex flex-col overflow-hidden pt-4">
+                
+                <!-- Tab Controls -->
+                <div class="flex items-center gap-2 mb-4">
+                    <button id="tabManageBtn" onclick="switchAdminTab('manage')" class="px-4 py-2 rounded-lg bg-amber-500 text-slate-950 font-bold text-xs">Manage Prices</button>
+                    <button id="tabAddBtn" onclick="switchAdminTab('add')" class="px-4 py-2 rounded-lg bg-slate-800 text-slate-300 font-bold text-xs hover:bg-slate-700">Add New Food Item</button>
+                </div>
+
+                <!-- Price Editor Tab -->
+                <div id="adminManageTab" class="flex-grow overflow-y-auto pr-2 space-y-3">
+                    <!-- Price rows dynamically loaded -->
+                </div>
+
+                <!-- Add New Food Item Tab -->
+                <div id="adminAddTab" class="hidden flex-grow overflow-y-auto pr-2 space-y-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-400 mb-1">Food Name</label>
+                        <input type="text" id="newFoodName" placeholder="e.g. Seafood Fried Rice" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-500">
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-400 mb-1">Category</label>
+                            <select id="newFoodCat" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-500">
+                                <option value="Rice & Curry">Rice & Curry</option>
+                                <option value="Kottu">Kottu</option>
+                                <option value="Burgers & Pizza">Burgers & Pizza</option>
+                                <option value="Beverages">Beverages</option>
+                                <option value="Desserts">Desserts</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-400 mb-1">Price (LKR)</label>
+                            <input type="number" id="newFoodPrice" placeholder="1200" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-500">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-400 mb-1">Image URL</label>
+                        <input type="text" id="newFoodImg" placeholder="https://images.unsplash.com/..." class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-400 mb-1">Badge Tag</label>
+                        <input type="text" id="newFoodBadge" placeholder="e.g. Hot & Spicy / Chef Special" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-500">
+                    </div>
+                    <button onclick="addNewFoodItem()" class="w-full py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition text-sm mt-2">
+                        Add to Food Menu
+                    </button>
+                </div>
+
+                <!-- Footer buttons -->
+                <div class="pt-4 mt-4 border-t border-slate-800 flex justify-between items-center">
+                    <button onclick="resetDefaultMenu()" class="text-xs text-red-400 hover:underline">Reset Default Menu</button>
+                    <button onclick="lockAdminPanel()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold rounded-lg">Lock & Exit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modern Footer -->
+    <footer class="bg-slate-950 border-t border-slate-800 py-12 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="text-lg font-bold text-white mb-3">Spice Realm Restaurant</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        රස නහර පිනවන සුපිරිම කෑම වේලක් ලබාගැනීමට අදම කතා කරන්න. Clean, fresh and delicious meals delivered right to your doorstep.
+                    </p>
+                    <p class="text-amber-400 font-bold text-sm"><i class="fa-solid fa-phone mr-2"></i> +94 77 123 4567</p>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-3">Opening Hours</h4>
+                    <ul class="text-slate-400 text-sm space-y-1">
+                        <li>Monday - Friday: 10:00 AM - 10:30 PM</li>
+                        <li>Saturday - Sunday: 09:00 AM - 11:30 PM</li>
+                        <li class="text-amber-500 font-medium pt-1"><i class="fa-solid fa-clock mr-1"></i> Delivery available all day</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-3">Location & Socials</h4>
+                    <p class="text-slate-400 text-sm mb-3"><i class="fa-solid fa-location-dot text-amber-500 mr-2"></i> No 142, Galle Road, Colombo 03, Sri Lanka</p>
+                    <div class="flex gap-3">
+                        <a href="#" class="w-9 h-9 rounded-lg bg-slate-800 flex items-center justify-center text-slate-300 hover:bg-amber-500 hover:text-slate-950 transition"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-lg bg-slate-800 flex items-center justify-center text-slate-300 hover:bg-amber-500 hover:text-slate-950 transition"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-lg bg-slate-800 flex items-center justify-center text-slate-300 hover:bg-amber-500 hover:text-slate-950 transition"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-900 pt-6 text-center text-slate-500 text-xs">
+                © 2026 Spice Realm. All Rights Reserved. Designed for Superi Level Food Experience.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Application Logic -->
+    <script>
+        // Initial Default Menu Items Data
+        const initialMenuItems = [
+            {
+                id: '1',
+                title: 'Chicken Kottu (Special)',
+                category: 'Kottu',
+                price: 1350,
+                badge: 'Popular',
+                image: 'https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=600&q=80',
+                description: 'Freshly chopped roti mixed with tender chicken, vegetables & aromatic Sri Lankan gravy.'
+            },
+            {
+                id: '2',
+                title: 'Sri Lankan Fish Rice & Curry',
+                category: 'Rice & Curry',
+                price: 850,
+                badge: 'Traditional',
+                image: 'https://images.unsplash.com/photo-1631515223380-7d92070c7223?auto=format&fit=crop&w=600&q=80',
+                description: 'Red rice served with authentic spicy tuna fish curry, dhal, coconut sambal and fried chili.'
+            },
+            {
+                id: '3',
+                title: 'Double Cheese Beef Burger',
+                category: 'Burgers & Pizza',
+                price: 1850,
+                badge: 'Chef Special',
+                image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80',
+                description: 'Juicy double grilled beef patty with melted cheddar, caramelized onions & secret sauce.'
+            },
+            {
+                id: '4',
+                title: 'Spicy Seafood Pizza (Large)',
+                category: 'Burgers & Pizza',
+                price: 2900,
+                badge: 'Spicy',
+                image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80',
+                description: 'Loaded with fresh prawns, calamari, mozzarella cheese, chili flakes and spicy tomato base.'
+            },
+            {
+                id: '5',
+                title: 'Fresh Mango Milkshake',
+                category: 'Beverages',
+                price: 650,
+                badge: 'Refreshing',
+                image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=600&q=80',
+                description: 'Made from fresh tropical mangoes, chilled milk, topped with a scoop of vanilla ice cream.'
+            },
+            {
+                id: '6',
+                title: 'Watalappan with Cashew',
+                category: 'Desserts',
+                price: 450,
+                badge: 'Sweet Delight',
+                image: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=600&q=80',
+                description: 'Authentic coconut jaggery pudding infused with cardamom, nutmeg & roasted cashew nuts.'
+            }
+        ];
+
+        // State Management
+        let menuData = [];
+        let cartData = [];
+        let activeCategory = 'All';
+
+        // Initialize App on DOM Load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadMenuFromStorage();
+            renderMenu();
+            updateCartBadge();
+        });
+
+        // Load Menu Data from LocalStorage or Default
+        function loadMenuFromStorage() {
+            const stored = localStorage.getItem('spice_realm_menu');
+            if (stored) {
+                try {
+                    menuData = JSON.parse(stored);
+                } catch(e) {
+                    menuData = [...initialMenuItems];
+                }
+            } else {
+                menuData = [...initialMenuItems];
+                saveMenuToStorage();
+            }
+        }
+
+        function saveMenuToStorage() {
+            localStorage.setItem('spice_realm_menu', JSON.stringify(menuData));
+        }
+
+        // Render Food Cards
+        function renderMenu() {
+            const grid = document.getElementById('foodGrid');
+            grid.innerHTML = '';
+
+            const filtered = activeCategory === 'All' 
+                ? menuData 
+                : menuData.filter(item => item.category === activeCategory);
+
+            if(filtered.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-12 text-slate-500 font-medium">No items found in this category.</div>`;
+                return;
+            }
+
+            filtered.forEach(item => {
+                const cardHtml = `
+                    <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between">
+                        <div>
+                            <div class="relative h-48 sm:h-52 overflow-hidden">
+                                <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover transition duration-500 hover:scale-110"
+                                     onerror="this.src='https://placehold.co/600x400/1e293b/f59e0b?text=${encodeURIComponent(item.title)}'">
+                                ${item.badge ? `<span class="absolute top-3 right-3 bg-amber-500/90 text-slate-950 font-bold text-xs px-2.5 py-1 rounded-full shadow-md backdrop-blur-sm">${item.badge}</span>` : ''}
+                            </div>
+                            <div class="p-5">
+                                <span class="text-xs font-semibold text-amber-500 uppercase tracking-wider">${item.category}</span>
+                                <h3 class="text-lg font-bold text-white mt-1 mb-2">${item.title}</h3>
+                                <p class="text-slate-400 text-xs sm:text-sm line-clamp-2 mb-4">${item.description}</p>
+                            </div>
+                        </div>
+
+                        <div class="px-5 pb-5 pt-0 flex items-center justify-between border-t border-slate-800/60 mt-auto">
+                            <div class="mt-3">
+                                <span class="text-xs text-slate-400 block">Price</span>
+                                <span class="text-xl font-black text-amber-400">LKR ${item.price.toLocaleString()}</span>
+                            </div>
+                            <button onclick="addToCart('${item.id}')" class="mt-3 px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition flex items-center gap-1.5 shadow-md shadow-amber-500/10">
+                                <i class="fa-solid fa-plus"></i> Order Now
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += cardHtml;
+            });
+        }
+
+        // Category Filter Switching
+        function filterCategory(cat) {
+            activeCategory = cat;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                if (btn.innerText.includes(cat) || (cat === 'All' && btn.innerText.includes('All Items'))) {
+                    btn.className = "cat-btn active border px-5 py-2.5 rounded-xl text-sm font-bold whitespace-nowrap transition bg-amber-500 text-slate-950 border-amber-500";
+                } else {
+                    btn.className = "cat-btn border px-5 py-2.5 rounded-xl text-sm font-bold whitespace-nowrap transition bg-slate-800/80 text-slate-300 border-slate-700/80 hover:border-amber-500/50";
+                }
+            });
+            renderMenu();
+        }
+
+        // Shopping Cart Logic
+        function addToCart(itemId) {
+            const item = menuData.find(i => i.id === itemId);
+            if (!item) return;
+
+            const existing = cartData.find(c => c.id === itemId);
+            if (existing) {
+                existing.qty++;
+            } else {
+                cartData.push({ ...item, qty: 1 });
+            }
+
+            updateCartBadge();
+            renderCart();
+            openCartModal();
+        }
+
+        function changeQty(itemId, delta) {
+            const idx = cartData.findIndex(c => c.id === itemId);
+            if (idx > -1) {
+                cartData[idx].qty += delta;
+                if (cartData[idx].qty <= 0) {
+                    cartData.splice(idx, 1);
+                }
+            }
+            updateCartBadge();
+            renderCart();
+        }
+
+        function updateCartBadge() {
+            const totalQty = cartData.reduce((acc, curr) => acc + curr.qty, 0);
+            document.getElementById('cartCountBadge').innerText = totalQty;
+        }
+
+        function renderCart() {
+            const cartList = document.getElementById('cartList');
+            const cartTotal = document.getElementById('cartTotal');
+            cartList.innerHTML = '';
+
+            if (cartData.length === 0) {
+                cartList.innerHTML = `<div class="text-center py-12 text-slate-500 text-sm">Your cart is empty. Add delicious food to order!</div>`;
+                cartTotal.innerText = 'LKR 0';
+                return;
+            }
+
+            let total = 0;
+            cartData.forEach(item => {
+                const subtotal = item.price * item.qty;
+                total += subtotal;
+
+                cartList.innerHTML += `
+                    <div class="flex items-center justify-between bg-slate-800/50 p-3 rounded-xl border border-slate-800">
+                        <div class="flex-grow pr-3">
+                            <h4 class="text-sm font-bold text-white">${item.title}</h4>
+                            <span class="text-xs text-amber-400 font-medium">LKR ${item.price.toLocaleString()} each</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button onclick="changeQty('${item.id}', -1)" class="w-7 h-7 rounded-lg bg-slate-700 text-slate-200 flex items-center justify-center text-xs font-bold hover:bg-slate-600">-</button>
+                            <span class="text-sm font-bold text-white w-5 text-center">${item.qty}</span>
+                            <button onclick="changeQty('${item.id}', 1)" class="w-7 h-7 rounded-lg bg-slate-700 text-slate-200 flex items-center justify-center text-xs font-bold hover:bg-slate-600">+</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            cartTotal.innerText = `LKR ${total.toLocaleString()}`;
+        }
+
+        function openCartModal() {
+            renderCart();
+            document.getElementById('cartModal').classList.remove('hidden');
+        }
+
+        function closeCartModal() {
+            document.getElementById('cartModal').classList.add('hidden');
+        }
+
+        // WhatsApp Order Dispatch
+        function sendWhatsAppOrder() {
+            if (cartData.length === 0) {
+                alert('Your cart is empty! Please add items first.');
+                return;
+            }
+
+            const name = document.getElementById('custName').value.trim();
+            const address = document.getElementById('custAddress').value.trim();
+
+            if (!name) {
+                alert('Please enter your name for the order.');
+                return;
+            }
+
+            let message = `🍽️ *NEW FOOD ORDER - SPICE REALM*\n`;
+            message += `---------------------------------\n`;
+            message += `👤 *Customer Name:* ${name}\n`;
+            if (address) message += `📍 *Address/Table:* ${address}\n`;
+            message += `---------------------------------\n`;
+            message += `*ORDER ITEMS:*\n`;
+
+            let grandTotal = 0;
+            cartData.forEach((item, index) => {
+                const itemTotal = item.price * item.qty;
+                grandTotal += itemTotal;
+                message += `${index + 1}. ${item.title} x ${item.qty} = LKR ${itemTotal.toLocaleString()}\n`;
+            });
+
+            message += `---------------------------------\n`;
+            message += `💰 *TOTAL AMOUNT:* LKR ${grandTotal.toLocaleString()}\n`;
+            message += `---------------------------------\n`;
+            message += `Please confirm my order as soon as possible! Thank you!`;
+
+            const restaurantPhone = "94771234567"; // Replace with your restaurant phone number
+            const encodedUrl = `https://wa.me/${restaurantPhone}?text=${encodeURIComponent(message)}`;
+            window.open(encodedUrl, '_blank');
+        }
+
+        // Admin Panel Controls
+        function openAdminModal() {
+            document.getElementById('adminModal').classList.remove('hidden');
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminModal').classList.add('hidden');
+        }
+
+        function verifyAdminPassword() {
+            const inputPass = document.getElementById('adminPasswordInput').value;
+            const errorMsg = document.getElementById('loginErrorMsg');
+
+            if (inputPass === 'admin123') {
+                errorMsg.classList.add('hidden');
+                document.getElementById('adminLoginView').classList.add('hidden');
+                document.getElementById('adminDashboardView').classList.remove('hidden');
+                renderAdminManageTab();
+            } else {
+                errorMsg.classList.remove('hidden');
+            }
+        }
+
+        function lockAdminPanel() {
+            document.getElementById('adminPasswordInput').value = '';
+            document.getElementById('adminDashboardView').classList.add('hidden');
+            document.getElementById('adminLoginView').classList.remove('hidden');
+            closeAdminModal();
+        }
+
+        function switchAdminTab(tab) {
+            const manageTab = document.getElementById('adminManageTab');
+            const addTab = document.getElementById('adminAddTab');
+            const manageBtn = document.getElementById('tabManageBtn');
+            const addBtn = document.getElementById('tabAddBtn');
+
+            if (tab === 'manage') {
+                manageTab.classList.remove('hidden');
+                addTab.classList.add('hidden');
+                manageBtn.className = "px-4 py-2 rounded-lg bg-amber-500 text-slate-950 font-bold text-xs";
+                addBtn.className = "px-4 py-2 rounded-lg bg-slate-800 text-slate-300 font-bold text-xs hover:bg-slate-700";
+            } else {
+                manageTab.classList.add('hidden');
+                addTab.classList.remove('hidden');
+                addBtn.className = "px-4 py-2 rounded-lg bg-amber-500 text-slate-950 font-bold text-xs";
+                manageBtn.className = "px-4 py-2 rounded-lg bg-slate-800 text-slate-300 font-bold text-xs hover:bg-slate-700";
+            }
+        }
+
+        // Admin: Render Price Manager
+        function renderAdminManageTab() {
+            const manageTab = document.getElementById('adminManageTab');
+            manageTab.innerHTML = '';
+
+            menuData.forEach((item) => {
+                manageTab.innerHTML += `
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between bg-slate-800/60 p-3 rounded-xl border border-slate-700/60 gap-3">
+                        <div class="flex items-center gap-3">
+                            <img src="${item.image}" class="w-12 h-12 rounded-lg object-cover" onerror="this.src='https://placehold.co/100x100/1e293b/f59e0b?text=Food'">
+                            <div>
+                                <h4 class="text-sm font-bold text-white">${item.title}</h4>
+                                <span class="text-xs text-slate-400">${item.category}</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-slate-400 font-semibold">LKR</span>
+                            <input type="number" value="${item.price}" id="price_input_${item.id}" 
+                                   class="w-28 bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-sm text-amber-400 font-bold focus:outline-none focus:border-amber-500">
+                            <button onclick="updateItemPrice('${item.id}')" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-lg transition">
+                                Save
+                            </button>
+                            <button onclick="deleteFoodItem('${item.id}')" class="px-2.5 py-1.5 bg-red-500/20 text-red-400 hover:bg-red-500 hover:text-white text-xs rounded-lg transition">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Update Price Function
+        function updateItemPrice(id) {
+            const newPriceVal = parseFloat(document.getElementById(`price_input_${id}`).value);
+            if (isNaN(newPriceVal) || newPriceVal <= 0) {
+                alert('Please enter a valid price.');
+                return;
+            }
+
+            const item = menuData.find(i => i.id === id);
+            if (item) {
+                item.price = newPriceVal;
+                saveMenuToStorage();
+                renderMenu();
+                alert(`Price updated for "${item.title}" successfully!`);
+            }
+        }
+
+        // Delete Item Function
+        function deleteFoodItem(id) {
+            if (confirm('Are you sure you want to remove this item from the menu?')) {
+                menuData = menuData.filter(i => i.id !== id);
+                saveMenuToStorage();
+                renderMenu();
+                renderAdminManageTab();
+            }
+        }
+
+        // Add New Item Function
+        function addNewFoodItem() {
+            const title = document.getElementById('newFoodName').value.trim();
+            const category = document.getElementById('newFoodCat').value;
+            const price = parseFloat(document.getElementById('newFoodPrice').value);
+            const image = document.getElementById('newFoodImg').value.trim() || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80';
+            const badge = document.getElementById('newFoodBadge').value.trim();
+
+            if (!title || isNaN(price) || price <= 0) {
+                alert('Please fill in required fields (Name and Price).');
+                return;
+            }
+
+            const newItem = {
+                id: Date.now().toString(),
+                title,
+                category,
+                price,
+                badge: badge || 'New',
+                image,
+                description: 'Delicious freshly prepared item crafted with authentic spices and quality ingredients.'
+            };
+
+            menuData.push(newItem);
+            saveMenuToStorage();
+            renderMenu();
+
+            // Clear Form
+            document.getElementById('newFoodName').value = '';
+            document.getElementById('newFoodPrice').value = '';
+            document.getElementById('newFoodImg').value = '';
+            document.getElementById('newFoodBadge').value = '';
+
+            switchAdminTab('manage');
+            renderAdminManageTab();
+            alert('New food item added successfully!');
+        }
+
+        // Reset Menu to Original Defaults
+        function resetDefaultMenu() {
+            if (confirm('Are you sure you want to reset all menu items to initial defaults? Custom price changes will be reset.')) {
+                menuData = [...initialMenuItems];
+                saveMenuToStorage();
+                renderMenu();
+                renderAdminManageTab();
+            }
+        }
+    </script>
+</body>
+</html>
